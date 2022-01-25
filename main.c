@@ -28,6 +28,8 @@ Purpose :
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 int main(void)
 {
@@ -37,7 +39,9 @@ int main(void)
     int j = 0;
 
     long * array = (long *)malloc(sizeof(long) * len);
-    printf("%l", array[len+len]);       // segfault here
+    //https://stackoverflow.com/a/12285433/4021436
+    printf("pid = %ld; parentid = %ld", (long)getpid(), (long)getppid());
+    //printf("%l", array[len+len]);       // segfault here
 
     for(i=0; i<N; i++){
         if(i%10 == 0){
