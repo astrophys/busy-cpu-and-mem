@@ -1,4 +1,4 @@
-# Segfault and CPU tools
+# Keep CPU Busy
 #### Author : Ali Snedden
 #### License: MIT
 ## Purpose:
@@ -10,31 +10,35 @@ arguments, one for cpu and the other for memory.
 
 ## Usage :
 Uses for this code:
+
+### Testing Segfaults / ulimit
+
 1. It can be used in conjunction with ulimit's data to generate segfaults
    (see `/etc/security/limits.conf`). In Red Hat 8, it isn't always obvious how to 
    generate segfaults
 
     a) To Enable core files on Red Hat 8 : 
 
-        i) Ensure that `ulimit -c unlimited`
+        - Ensure that `ulimit -c unlimited`
 
     b) Ensure both abrtd and abrt-ccpp are running
 
-        i)  service abrtd status
+        - `service abrtd status`
 
-        ii) service abrt-ccpp status
+        - `service abrt-ccpp status`
 
-    c) In /etc/abrt/abrt-action-save-package-data.conf ensure `ProcessUnpackaged = yes`
+    c) In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
 
     d) Run a test bad code
 
-       * Typically the file will be written /var/spool/abrt/
+       - Typically the file will be written /var/spool/abrt/
 
-       * If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
+       - If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
 
-       * If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
+       - If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
          to a local file
 
+### Testing Cgroups
 2. When testing cgroups, it is convenient to have a single code to keep the processor
    busy instead of spawning dozens of cpu processes to test the cpu limits
 
