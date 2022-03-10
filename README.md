@@ -17,26 +17,26 @@ Uses for this code:
    (see `/etc/security/limits.conf`). In Red Hat 8, it isn't always obvious how to 
    generate segfaults
 
-    a) To Enable core files on Red Hat 8 : 
+   a) To Enable core files on Red Hat 8 : 
 
-        - Ensure that `ulimit -c unlimited`
+      - Ensure that `ulimit -c unlimited`
 
-    b) Ensure both abrtd and abrt-ccpp are running
+   b) Ensure both abrtd and abrt-ccpp are running
 
-        - `service abrtd status`
+      - `service abrtd status`
 
-        - `service abrt-ccpp status`
+      - `service abrt-ccpp status`
 
-    c) In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
+  c) In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
 
-    d) Run a test bad code
+  d) Run a test bad code
 
-       - Typically the file will be written /var/spool/abrt/
+     - Typically the file will be written /var/spool/abrt/
 
-       - If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
+     - If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
 
-       - If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
-         to a local file
+     - If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
+       to a local file
 
 ### Testing Cgroups
 2. When testing cgroups, it is convenient to have a single code to keep the processor
