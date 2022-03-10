@@ -11,31 +11,30 @@ arguments, one for cpu and the other for memory.
 ## Usage :
 Uses for this code:
 
-### Testing Segfaults / ulimit
+### Testing and Creating Segfaults with ulimit
+This code can be used in conjunction with ulimit's data to generate segfaults
+(see `/etc/security/limits.conf`). In Red Hat 8, it isn't always obvious how to 
+generate segfaults and capture the output
 
-1. It can be used in conjunction with ulimit's data to generate segfaults
-   (see `/etc/security/limits.conf`). In Red Hat 8, it isn't always obvious how to 
-   generate segfaults
+1. Enable core files on Red Hat 8 : 
+    
+    a) Ensure that `ulimit -c unlimited`
 
-   a) To Enable core files on Red Hat 8 : 
+2. Ensure both abrtd and abrt-ccpp are running
 
-      - Ensure that `ulimit -c unlimited`
+    a) `service abrtd status`
 
-   b) Ensure both abrtd and abrt-ccpp are running
+    b) `service abrt-ccpp status`
 
-      - `service abrtd status`
+3. In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
 
-      - `service abrt-ccpp status`
+4. Run a test bad code
 
-  c) In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
+    a) Typically the file will be written `/var/spool/abrt/`
 
-  d) Run a test bad code
+    b) If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
 
-     - Typically the file will be written /var/spool/abrt/
-
-     - If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
-
-     - If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
+    c) If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
        to a local file
 
 ### Testing Cgroups
