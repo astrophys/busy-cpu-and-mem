@@ -8,8 +8,32 @@ and processors and then works them to keep them busy.
 This repo contains a code busy-cpu-and-mem.c which when compiled, takes two
 arguments, one for cpu and the other for memory.
 
-## Usage :
-Uses for this code:
+
+
+## Installation and Dependencies :
+1. A modern C compiler with OpenMP extensions
+2. Get a copy of this code.
+3. Compile 
+```
+gcc -fopenmp -Wall busy-cpu-and-mem.c
+```
+
+
+## Running :
+```
+./a.out num_cpu mem_use_in_GB
+```
+Where first argument is the number of cpu and second argument is the gigabytes of RAM 
+for the code to use.
+
+E.g. 
+```
+./a.out 16 50
+```
+
+
+
+## Uses for this Code:
 
 ### Testing and Creating Segfaults with ulimit
 This code can be used in conjunction with ulimit's data to generate segfaults
@@ -44,6 +68,12 @@ generate segfaults and capture the output
     c) If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
        to a local file
 
+5. Compile and Run the code (e.g. with 8 cores and 20GB RAM)
+    ```
+    gcc -fopenmp -Wall busy-cpu-and-mem.c
+    ./a.out 8 20
+    ```
+
 ### Testing Cgroups
 When testing cgroups, it is convenient to have a single code to keep the processor
 busy instead of spawning dozens of cpu processes to test the cpu limits
@@ -68,31 +98,16 @@ MemoryMax=8G
 $ systemctl daemon-reload
 ```
 
-
-## Installation and Dependencies :
-1. A modern C compiler with OpenMP extensions
-2. Get a copy of this code.
-3. Compile 
-```
-gcc -fopenmp -Wall busy-cpu-and-mem.c
-```
-
-
-## Running :
-```
-./a.out num_cpu mem_use_in_GB
-```
-Where first argument is the number of cpu and second argument is the gigabytes of RAM 
-for the code to use.
-
-E.g. 
-```
-./a.out 16 50
-```
+4. Compile and Run the code (e.g. with 8 cores and 20GB RAM)
+    ```
+    gcc -fopenmp -Wall busy-cpu-and-mem.c
+    ./a.out 8 20
+    ```
 
 
 
-#### References:
+
+## References:
 1. [Naming Convention for Core Files](https://unix.stackexchange.com/a/277338/128519)
 2. [Specifying location of core file](https://stackoverflow.com/a/42272400/4021436)
 3. [How to enable core file dumps when an application crashes or segmentation faults](https://access.redhat.com/solutions/4896)
