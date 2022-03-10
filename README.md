@@ -26,7 +26,7 @@ gcc -fopenmp -Wall busy-cpu-and-mem.c
 Where first argument is the number of cpu and second argument is the gigabytes of RAM 
 for the code to use.
 
-E.g. 
+E.g. 16 cores, 50GB
 ```
 ./a.out 16 50
 ```
