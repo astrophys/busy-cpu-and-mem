@@ -17,23 +17,46 @@ This code can be used in conjunction with ulimit's data to generate segfaults
 generate segfaults and capture the output
 
 1. Enable core files on Red Hat 8 : 
+    
     a) Ensure that `ulimit -c unlimited`
 
 2. Ensure both abrtd and abrt-ccpp are running
+
     a) `service abrtd status`
+
     b) `service abrt-ccpp status`
 
 3. In `/etc/abrt/abrt-action-save-package-data.conf` ensure `ProcessUnpackaged = yes`
 
 4. Run a test bad code
+
     a) Typically the file will be written `/var/spool/abrt/`
+
     b) If you do `cat /proc/sys/kernel/core_pattern`, you'll see some stuff
+
     c) If you `echo "core" > /proc/sys/kernel/core_pattern` it will dump
        to a local file
 
 ### Testing Cgroups
-2. When testing cgroups, it is convenient to have a single code to keep the processor
-   busy instead of spawning dozens of cpu processes to test the cpu limits
+When testing cgroups, it is convenient to have a single code to keep the processor
+busy instead of spawning dozens of cpu processes to test the cpu limits
+
+1. Create a directory for all users (careful this will limit root) :
+```
+$ mkdir /etc/systemd/system/user-.slice.d
+```
+
+2. Create the following file (permits only:
+```
+$ cat /etc/systemd/system/user-.slice.d/cpu.conf
+[Slice]
+CPUQuota=80%
+```
+
+3. Implement the limits
+```
+$ systemctl daemon-reload
+```
 
 
 ## Installation and Dependencies :
