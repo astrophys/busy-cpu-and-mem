@@ -69,11 +69,11 @@ int exit_with_error(char * string){
 int main(int argc, char *argv[])
 {
     char errMsg[200];       // Used for error messages
-    int nThread;            // Number of threads, from CL args
-    int nLoop = 1000;       // Number of loops
-    int i = 0;
-    int j = 0;
-    int k = 0;
+    long nThread;            // Number of threads, from CL args
+    long nLoop = 1000;       // Number of loops
+    long i = 0;
+    long j = 0;
+    long k = 0;
     long mem = 0;           // Memory in GB
     long n;                 // Number of array elements, from CL args
     long nbytes;            // Total bytes
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     nThread = atoi(argv[1]);
     // Memory
     mem = atol(argv[2]);
-    printf("Running with %i procs and %li GB\n", nThread, mem);
+    printf("Running with %ld procs and %ld GB\n", nThread, mem);
     printf("pid = %ld; parentid = %ld\n", (long)getpid(), (long)getppid());
     // OpenMP creates nThread copies of array, so account
     nbytes = mem * pow(10,9); 
@@ -99,8 +99,8 @@ int main(int argc, char *argv[])
 
     #pragma omp parallel private(i, array)
     {
-        int tid = omp_get_thread_num();
-        printf("Hello from Thread : %i\n",tid);
+        long tid = omp_get_thread_num();
+        printf("Hello from Thread : %ld\n",tid);
         // Initialize - stop compiler complaints
         array = (long *)malloc(n * sizeof(long)); 
 
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
         for(k=0; k<nThread; k++){
             for(i=0; i<nLoop; i++){
                 if(tid == 0 && i%10 == 0){
-                    printf("\ttid: %i; i=%i\n",tid,i);
+                    printf("\ttid: %ld; i=%ld\n",tid,i);
                 }
                 fflush(stdout);
                 for(j=0; j<n; j++){
