@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 {
     char errMsg[200];       // Used for error messages
     long nThread;            // Number of threads, from CL args
-    long nLoop = 1000;       // Number of loops
+    long nLoop;       // Number of loops
     long i = 0;
     long j = 0;
     long k = 0;
@@ -81,14 +81,15 @@ int main(int argc, char *argv[])
 
     /************* Parse CL args *************/
     // Check for correct number of arguments
-    if(argc != 3){
-        sprintf(errMsg, "ERROR!!! %i args passed, only 3 expected\n", argc);
+    if(argc != 4){
+        sprintf(errMsg, "ERROR!!! %i args passed, only 4 expected\n", argc);
         exit_with_error(errMsg);
     }
     // Number of threads
     nThread = atoi(argv[1]);
     // Memory
     mem = atol(argv[2]);
+    nLoop = atol(argv[3]);
     printf("Running with %ld procs and %ld GB\n", nThread, mem);
     printf("pid = %ld; parentid = %ld\n", (long)getpid(), (long)getppid());
     // OpenMP creates nThread copies of array, so account

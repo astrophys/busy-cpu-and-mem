@@ -21,14 +21,14 @@ gcc -fopenmp -Wall busy-cpu-and-mem.c
 
 ## Running :
 ```
-./a.out num_cpu mem_use_in_GB
+./a.out num_cpu mem_use_in_GB num_of_iterations
 ```
-Where first argument is the number of cpu and second argument is the gigabytes of RAM 
-for the code to use.
+Where first argument is the number of cpu, second argument is the gigabytes of RAM 
+for the code to use and the third argument is the number of iterations to use (i.e. a proxy for total run time).
 
-E.g. 16 cores, 50GB
+E.g. 16 cores, 50GB, 142 iterations
 ```
-./a.out 16 50
+./a.out 16 50 142
 ```
 
 
@@ -71,7 +71,7 @@ generate segfaults and capture the output
 5. Compile and Run the code (e.g. with 8 cores and 20GB RAM)
     ```
     gcc -fopenmp -Wall busy-cpu-and-mem.c
-    ./a.out 8 20
+    ./a.out 8 20 142
     ```
 
 ### Testing Cgroups
@@ -101,7 +101,7 @@ $ systemctl daemon-reload
 4. Compile and Run the code (e.g. with 8 cores and 20GB RAM)
     ```
     gcc -fopenmp -Wall busy-cpu-and-mem.c
-    ./a.out 8 20
+    ./a.out 8 20 142
     ```
 
 
